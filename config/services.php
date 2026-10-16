@@ -14,6 +14,7 @@ use Tmonier\SyliusRegistrationApprovalPlugin\Approval\RegistrationApprovalManage
 use Tmonier\SyliusRegistrationApprovalPlugin\Approval\RegistrationMarker;
 use Tmonier\SyliusRegistrationApprovalPlugin\Approval\VisitorApproval;
 use Tmonier\SyliusRegistrationApprovalPlugin\Approval\VisitorApprovalInterface;
+use Tmonier\SyliusRegistrationApprovalPlugin\Command\CheckConfigurationCommand;
 use Tmonier\SyliusRegistrationApprovalPlugin\Controller\Admin\DecisionController;
 use Tmonier\SyliusRegistrationApprovalPlugin\Controller\Shop\PendingController;
 use Tmonier\SyliusRegistrationApprovalPlugin\EventListener\PendingCustomerListener;
@@ -62,11 +63,13 @@ return static function (ContainerConfigurator $container): void {
             service('sylius.section_resolver.uri_based'),
             service('sylius.context.channel'),
             service('tmonier_registration_approval.policy'),
+            service('tmonier_channel_access.resolver'),
+            service('logger')->nullOnInvalid(),
         ])
     ;
 
     $services->set('tmonier_registration_approval.listener.registration', RegistrationListener::class)
-        ->args([service('tmonier_registration_approval.marker'), service('security.token_storage'), service('request_stack'), service('router')])
+        ->args([service('tmonier_registration_approval.marker'), service('security.token_storage'), service('request_stack'), service('router'), service('tmonier_registration_approval.channel_checker'), service('security.password_hasher_factory')])
         ->tag('kernel.event_listener', ['event' => 'sylius.customer.pre_register', 'method' => 'onPreRegister', 'priority' => 100])
         ->tag('kernel.event_listener', ['event' => 'sylius.customer.post_register', 'method' => 'onPostRegister', 'priority' => -10])
         ->tag('doctrine.event_listener', ['event' => 'prePersist'])
@@ -151,6 +154,11 @@ return static function (ContainerConfigurator $container): void {
             service('sylius.canonicalizer'),
             service('sylius.repository.shop_user'),
         ])
+    ;
+
+    $services->set('tmonier_registration_approval.command.check', CheckConfigurationCommand::class)
+        ->args([service('sylius.repository.channel'), service('tmonier_channel_access.resolver'), '%tmonier_registration_approval.channels%'])
+        ->tag('console.command')
     ;
 
     $services->set('tmonier_registration_approval.menu.admin', AdminMenuListener::class)
