@@ -1,0 +1,34 @@
+imports:
+    - { resource: "@TmonierSyliusChannelAccessPlugin/config/config.yaml" }
+    - { resource: "@TmonierSyliusRegistrationApprovalPlugin/config/config.yaml" }
+    - { resource: "dbal_savepoints.php" }
+
+# The registrations of the fixture channel are validated by an administrator.
+tmonier_sylius_registration_approval:
+    channels: ['FASHION_WEB']
+
+# The channel and the customer entities of the application use the plugin traits (see the README).
+sylius_channel:
+    resources:
+        channel:
+            classes:
+                model: Tests\Tmonier\SyliusRegistrationApprovalPlugin\Entity\Channel\Channel
+
+sylius_customer:
+    resources:
+        customer:
+            classes:
+                model: Tests\Tmonier\SyliusRegistrationApprovalPlugin\Entity\Customer\Customer
+
+doctrine:
+    orm:
+        mappings:
+            TmonierRegistrationApprovalTestApplication:
+                type: attribute
+                dir: '%kernel.project_dir%/../../../tests/TestApplication/src/Entity'
+                prefix: 'Tests\Tmonier\SyliusRegistrationApprovalPlugin\Entity'
+                is_bundle: false
+
+twig:
+    paths:
+        '%kernel.project_dir%/../../../tests/TestApplication/templates': ~

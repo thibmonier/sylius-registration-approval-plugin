@@ -1,0 +1,2 @@
+tmonier_sylius_registration_approval:
+    resource: "@TmonierSyliusRegistrationApprovalPlugin/config/routes.yaml"
