@@ -125,6 +125,43 @@ final class RegistrationTest extends WebTestCase
         }
     }
 
+    public function testARegistrationOnAChannelThatDoesNotValidateIsPendingAndBlockedWhereRegistrationsAreValidated(): void
+    {
+        $this->otherChannel(AccessMode::Closed);
+        $email = $this->uniqueEmail();
+        $this->client->setServerParameter('HTTP_HOST', 'other.example');
+
+        $this->registerThroughTheForm($email);
+
+        // Self-service registrations are pending whatever the channel (no switching channel to skip the validation).
+        self::assertSame(ApprovalStatus::Pending, $this->statusOf($email));
+        $customer = $this->customerByEmail($email);
+        $user = $customer?->getUser();
+        self::assertInstanceOf(\Sylius\Component\Core\Model\ShopUserInterface::class, $user);
+
+        // On the channel that does not validate, the account works as before.
+        $this->logout();
+        $this->client->setServerParameter('HTTP_HOST', 'other.example');
+        $this->loginAs($user);
+        $this->get($this->shopUrl('/account/dashboard'));
+        self::assertSame(200, $this->statusCode());
+
+        // On the validating channel it is turned away until an administrator approves it.
+        $this->logout();
+        $this->client->setServerParameter('HTTP_HOST', 'localhost');
+        $this->loginAs($user);
+        $this->get($this->productUrl());
+        self::assertSame(403, $this->statusCode());
+
+        $manager = self::getContainer()->get(\Tmonier\SyliusRegistrationApprovalPlugin\Approval\RegistrationApprovalManagerInterface::class);
+        self::assertInstanceOf(\Tmonier\SyliusRegistrationApprovalPlugin\Approval\RegistrationApprovalManagerInterface::class, $manager);
+        $managed = $this->customerByEmail($email);
+        self::assertNotNull($managed);
+        $manager->approve($managed, 'sophie');
+        $this->get($this->productUrl());
+        self::assertSame(200, $this->statusCode());
+    }
+
     public function testAnOpenChannelDoesNotRestrictAPendingCustomer(): void
     {
         $this->setMode(AccessMode::Open);

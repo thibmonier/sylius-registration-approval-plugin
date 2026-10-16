@@ -55,6 +55,34 @@ trait RegistrationApprovalTestTrait
         return $id;
     }
 
+    /** A second channel on its own host, that does not validate registrations. */
+    private function otherChannel(AccessMode $mode): ChannelInterface&AccessModeAwareInterface
+    {
+        $first = $this->channel();
+        /** @var FactoryInterface<ChannelInterface> $factory */
+        $factory = self::getContainer()->get('sylius.factory.channel');
+        $other = $factory->createNew();
+        Assert::isInstanceOf($other, AccessModeAwareInterface::class);
+        $other->setCode('OTHER_WEB');
+        $other->setName('Other');
+        $other->setHostname('other.example');
+        $other->setEnabled(true);
+        $other->setTaxCalculationStrategy($first->getTaxCalculationStrategy());
+        $other->setBaseCurrency($first->getBaseCurrency());
+        foreach ($first->getCurrencies() as $currency) {
+            $other->addCurrency($currency);
+        }
+        foreach ($first->getLocales() as $locale) {
+            $other->addLocale($locale);
+        }
+        $other->setDefaultLocale($first->getDefaultLocale());
+        $other->setAccessMode($mode);
+        $this->entityManager()->persist($other);
+        $this->entityManager()->flush();
+
+        return $other;
+    }
+
     private function setMode(AccessMode $mode): void
     {
         $channel = $this->channel();
