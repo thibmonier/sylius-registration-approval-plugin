@@ -14,7 +14,7 @@ use Tmonier\SyliusRegistrationApprovalPlugin\Entity\Customer\ApprovalAwareInterf
 
 final readonly class RegistrationApprovalManager implements RegistrationApprovalManagerInterface
 {
-    public const REASON_MAX_LENGTH = 500;
+    public const int REASON_MAX_LENGTH = 500;
 
     public function __construct(
         private EntityManagerInterface $entityManager,
