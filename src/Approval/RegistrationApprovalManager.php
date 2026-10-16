@@ -45,7 +45,10 @@ final readonly class RegistrationApprovalManager implements RegistrationApproval
         // Two administrators deciding at once: the second one sees the first decision. A refusal is
         // reported after the transaction: an exception inside would close the entity manager.
         $decided = $this->entityManager->wrapInTransaction(function () use ($customer, $status, $decidedBy, $reason): bool {
-            $this->entityManager->refresh($customer, LockMode::PESSIMISTIC_WRITE);
+            // Lock the customer row alone (a locking refresh joins associations, which PostgreSQL
+            // refuses on the nullable side of an outer join), then read the committed state.
+            $this->entityManager->lock($customer, LockMode::PESSIMISTIC_WRITE);
+            $this->entityManager->refresh($customer);
             if (ApprovalStatus::Pending !== $customer->getApprovalStatus()) {
                 return false;
             }
