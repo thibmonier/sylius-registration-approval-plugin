@@ -69,6 +69,16 @@ final class RegistrationMarkerTest extends TestCase
         $this->marker(new ShopSection(), ['B2B'], true, AccessMode::Open, $logger)->markIfRegistration($this->user());
     }
 
+    public function testTheReportIsMadeOncePerChannel(): void
+    {
+        $logger = $this->createMock(\Psr\Log\LoggerInterface::class);
+        $logger->expects(self::once())->method('warning');
+        $marker = $this->marker(new ShopSection(), ['B2B'], true, AccessMode::Open, $logger);
+
+        $marker->markIfRegistration($this->user());
+        $marker->markIfRegistration($this->user());
+    }
+
     public function testNoReportWhenTheModeRestricts(): void
     {
         $logger = $this->createMock(\Psr\Log\LoggerInterface::class);

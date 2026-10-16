@@ -11,6 +11,8 @@ use Sylius\Component\Core\Model\Channel;
 use Sylius\Component\Core\Model\ShopUser;
 use Sylius\Component\User\Canonicalizer\CanonicalizerInterface;
 use Sylius\Component\User\Repository\UserRepositoryInterface;
+use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
+use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 use Tmonier\SyliusRegistrationApprovalPlugin\Api\ApprovalAwareRegisterShopUserHandler;
 use Tmonier\SyliusRegistrationApprovalPlugin\Approval\ChannelApprovalChecker;
 use Tmonier\SyliusRegistrationApprovalPlugin\Approval\ConfiguredApprovalPolicy;
@@ -21,7 +23,10 @@ final class ApprovalAwareRegisterShopUserHandlerTest extends TestCase
     {
         $inner = new SpyHandler();
 
-        $result = $this->handler($inner, ['B2B'], new ShopUser())($this->command());
+        $hasher = $this->createMock(PasswordHasherInterface::class);
+        $hasher->expects(self::once())->method('hash');
+
+        $result = $this->handler($inner, ['B2B'], new ShopUser(), $hasher)($this->command());
 
         self::assertNull($result);
         self::assertSame(0, $inner->calls);
@@ -31,7 +36,10 @@ final class ApprovalAwareRegisterShopUserHandlerTest extends TestCase
     {
         $inner = new SpyHandler();
 
-        $result = $this->handler($inner, ['B2B'], null)($this->command());
+        $hasher = $this->createMock(PasswordHasherInterface::class);
+        $hasher->expects(self::never())->method('hash');
+
+        $result = $this->handler($inner, ['B2B'], null, $hasher)($this->command());
 
         self::assertInstanceOf(ShopUser::class, $result);
         self::assertSame(1, $inner->calls);
@@ -47,7 +55,7 @@ final class ApprovalAwareRegisterShopUserHandlerTest extends TestCase
     }
 
     /** @param list<string> $channels */
-    private function handler(SpyHandler $inner, array $channels, ?ShopUser $existing): ApprovalAwareRegisterShopUserHandler
+    private function handler(SpyHandler $inner, array $channels, ?ShopUser $existing, ?PasswordHasherInterface $hasher = null): ApprovalAwareRegisterShopUserHandler
     {
         $channel = new Channel();
         $channel->setCode('B2B');
@@ -58,7 +66,10 @@ final class ApprovalAwareRegisterShopUserHandlerTest extends TestCase
         $repository = $this->createStub(UserRepositoryInterface::class);
         $repository->method('findOneByEmail')->willReturn($existing);
 
-        return new ApprovalAwareRegisterShopUserHandler($inner, new ChannelApprovalChecker($context, new ConfiguredApprovalPolicy($channels)), $canonicalizer, $repository);
+        $factory = $this->createStub(PasswordHasherFactoryInterface::class);
+        $factory->method('getPasswordHasher')->willReturn($hasher ?? $this->createStub(PasswordHasherInterface::class));
+
+        return new ApprovalAwareRegisterShopUserHandler($inner, new ChannelApprovalChecker($context, new ConfiguredApprovalPolicy($channels)), $canonicalizer, $repository, $factory);
     }
 
     private function command(): RegisterShopUser
