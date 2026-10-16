@@ -1,0 +1,7 @@
+{% from '@SyliusAdmin/shared/helper/breadcrumbs.html.twig' import breadcrumbs %}
+
+{{ breadcrumbs([
+    { name: 'sylius.ui.dashboard', url: path('sylius_admin_dashboard'), active: false },
+    { name: 'sylius.ui.customers', url: path('sylius_admin_customer_index'), active: false },
+    { name: 'tmonier_registration_approval.ui.registrations'|trans, active: true },
+]) }}

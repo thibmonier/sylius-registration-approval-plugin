@@ -1,0 +1,6 @@
+tmonier_registration_approval:
+    flash:
+        approved: 'The registration was approved and the customer was notified.'
+        rejected: 'The registration was rejected and the customer was notified.'
+        already_decided: 'This registration has already been decided.'
+        reason_too_long: 'The reason is limited to 500 characters.'

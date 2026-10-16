@@ -1,0 +1,34 @@
+tmonier_registration_approval:
+    ui:
+        registrations: 'Registrazioni'
+        registrations_subheader: 'Approva o rifiuta gli account creati nei canali che convalidano le registrazioni.'
+        registered_at: 'Registrato il'
+        status: 'Stato'
+        approve: 'Approva'
+        reject: 'Rifiuta'
+        reason: 'Motivo interno (facoltativo)'
+    status:
+        pending: 'In attesa'
+        approved: 'Approvata'
+        rejected: 'Rifiutata'
+    shop:
+        home: 'Torna alla home page'
+        pending:
+            title: 'La tua registrazione è in attesa di approvazione'
+            message: 'Un amministratore deve approvare il tuo account prima che tu possa consultare il catalogo. Riceverai un''e-mail non appena sarà fatto.'
+        rejected:
+            title: 'La tua registrazione non è stata approvata'
+            message: 'Il tuo account non è stato approvato, quindi il catalogo non è disponibile. Contattaci se pensi che sia un errore.'
+        received:
+            title: 'Registrazione ricevuta'
+            message: 'Grazie. Il tuo account sarà esaminato da un amministratore e riceverai un''e-mail con la decisione.'
+    email:
+        approved:
+            subject: 'Il tuo account è stato approvato'
+            title: 'Benvenuto!'
+            message: 'La tua registrazione è stata approvata. Ora puoi accedere e consultare il catalogo.'
+            action: 'Inizia lo shopping'
+        rejected:
+            subject: 'A proposito della tua registrazione'
+            title: 'Registrazione non approvata'
+            message: 'Ci dispiace, la tua registrazione non ha potuto essere approvata. Contattaci se pensi che sia un errore.'

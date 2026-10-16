@@ -1,0 +1,34 @@
+tmonier_registration_approval:
+    ui:
+        registrations: 'Inscriptions'
+        registrations_subheader: 'Approuvez ou refusez les comptes créés sur les canaux qui valident leurs inscriptions.'
+        registered_at: 'Inscrit le'
+        status: 'Statut'
+        approve: 'Approuver'
+        reject: 'Refuser'
+        reason: 'Motif interne (facultatif)'
+    status:
+        pending: 'En attente'
+        approved: 'Approuvée'
+        rejected: 'Refusée'
+    shop:
+        home: 'Retour à l''accueil'
+        pending:
+            title: 'Votre inscription est en attente de validation'
+            message: 'Un administrateur doit approuver votre compte avant que vous puissiez consulter le catalogue. Vous recevrez un e-mail dès que ce sera fait.'
+        rejected:
+            title: 'Votre inscription n''a pas été approuvée'
+            message: 'Votre compte n''a pas été approuvé : le catalogue ne vous est pas accessible. Contactez-nous si vous pensez qu''il s''agit d''une erreur.'
+        received:
+            title: 'Inscription reçue'
+            message: 'Merci. Votre compte sera examiné par un administrateur et vous recevrez un e-mail avec la décision.'
+    email:
+        approved:
+            subject: 'Votre compte a été approuvé'
+            title: 'Bienvenue !'
+            message: 'Votre inscription a été approuvée. Vous pouvez maintenant vous connecter et consulter le catalogue.'
+            action: 'Commencer mes achats'
+        rejected:
+            subject: 'À propos de votre inscription'
+            title: 'Inscription non approuvée'
+            message: 'Nous sommes désolés, votre inscription n''a pas pu être approuvée. Contactez-nous si vous pensez qu''il s''agit d''une erreur.'

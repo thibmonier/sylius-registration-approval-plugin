@@ -1,0 +1,56 @@
+sylius_grid:
+    templates:
+        action:
+            tmonier_registration_decide: '@TmonierSyliusRegistrationApprovalPlugin/admin/registration/grid/action/decide.html.twig'
+    grids:
+        tmonier_registration_approval_admin:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: "%sylius.model.customer.class%"
+            sorting:
+                createdAt: desc
+            fields:
+                email:
+                    type: string
+                    label: sylius.ui.email
+                    sortable: ~
+                lastName:
+                    type: string
+                    label: sylius.ui.last_name
+                    sortable: ~
+                firstName:
+                    type: string
+                    label: sylius.ui.first_name
+                    sortable: ~
+                createdAt:
+                    type: datetime
+                    label: tmonier_registration_approval.ui.registered_at
+                    sortable: ~
+                    options:
+                        format: Y-m-d H:i
+                approvalStatus:
+                    type: twig
+                    label: tmonier_registration_approval.ui.status
+                    path: .
+                    options:
+                        template: "@TmonierSyliusRegistrationApprovalPlugin/admin/registration/grid/field/status.html.twig"
+            filters:
+                search:
+                    type: string
+                    label: sylius.ui.search
+                    options:
+                        fields: [email, firstName, lastName]
+                approvalStatus:
+                    type: select
+                    label: tmonier_registration_approval.ui.status
+                    default_value: pending
+                    form_options:
+                        choices:
+                            tmonier_registration_approval.status.pending: pending
+                            tmonier_registration_approval.status.approved: approved
+                            tmonier_registration_approval.status.rejected: rejected
+            actions:
+                item:
+                    decide:
+                        type: tmonier_registration_decide

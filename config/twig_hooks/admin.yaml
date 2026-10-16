@@ -1,0 +1,11 @@
+sylius_twig_hooks:
+    hooks:
+        'tmonier_registration_approval_admin.registration.index.content.header':
+            breadcrumbs:
+                template: '@TmonierSyliusRegistrationApprovalPlugin/admin/registration/index/breadcrumbs.html.twig'
+                priority: 100
+
+        'tmonier_registration_approval_admin.registration.index.content.header.title_block':
+            title:
+                template: '@TmonierSyliusRegistrationApprovalPlugin/admin/registration/index/title.html.twig'
+                priority: 100

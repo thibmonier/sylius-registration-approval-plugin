@@ -1,0 +1,5 @@
+{% set status = data.approvalStatus.value %}
+<span class="badge {{ status == 'approved' ? 'bg-success-lt' : (status == 'rejected' ? 'bg-danger-lt' : 'bg-warning-lt') }}" data-test-tmonier-approval-status>{{ ('tmonier_registration_approval.status.' ~ status)|trans }}</span>
+{% if data.approvalDecision is not null %}
+    <div class="text-muted small">{{ data.approvalDecision.decidedAt|date('Y-m-d H:i') }} · {{ data.approvalDecision.decidedBy }}</div>
+{% endif %}

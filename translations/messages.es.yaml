@@ -1,0 +1,34 @@
+tmonier_registration_approval:
+    ui:
+        registrations: 'Registros'
+        registrations_subheader: 'Apruebe o rechace las cuentas creadas en los canales que validan sus registros.'
+        registered_at: 'Registrado el'
+        status: 'Estado'
+        approve: 'Aprobar'
+        reject: 'Rechazar'
+        reason: 'Motivo interno (opcional)'
+    status:
+        pending: 'Pendiente'
+        approved: 'Aprobado'
+        rejected: 'Rechazado'
+    shop:
+        home: 'Volver al inicio'
+        pending:
+            title: 'Su registro está pendiente de aprobación'
+            message: 'Un administrador debe aprobar su cuenta antes de que pueda consultar el catálogo. Recibirá un correo en cuanto se haga.'
+        rejected:
+            title: 'Su registro no fue aprobado'
+            message: 'Su cuenta no fue aprobada, por lo que el catálogo no está disponible para usted. Contáctenos si cree que es un error.'
+        received:
+            title: 'Registro recibido'
+            message: 'Gracias. Un administrador revisará su cuenta y recibirá un correo con la decisión.'
+    email:
+        approved:
+            subject: 'Su cuenta ha sido aprobada'
+            title: '¡Bienvenido!'
+            message: 'Su registro ha sido aprobado. Ya puede iniciar sesión y consultar el catálogo.'
+            action: 'Empezar a comprar'
+        rejected:
+            subject: 'Sobre su registro'
+            title: 'Registro no aprobado'
+            message: 'Lo sentimos, su registro no pudo ser aprobado. Contáctenos si cree que es un error.'

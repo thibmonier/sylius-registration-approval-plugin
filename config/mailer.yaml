@@ -1,0 +1,8 @@
+sylius_mailer:
+    emails:
+        tmonier_registration_approved:
+            subject: tmonier_registration_approval.email.approved.subject
+            template: '@TmonierSyliusRegistrationApprovalPlugin/email/approved.html.twig'
+        tmonier_registration_rejected:
+            subject: tmonier_registration_approval.email.rejected.subject
+            template: '@TmonierSyliusRegistrationApprovalPlugin/email/rejected.html.twig'

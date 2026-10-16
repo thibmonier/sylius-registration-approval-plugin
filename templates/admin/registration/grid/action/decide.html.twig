@@ -1,0 +1,11 @@
+{% if data.approvalStatus.value == 'pending' %}
+    <form action="{{ path('tmonier_registration_approval_admin_decide', {'id': data.id, 'decision': 'approve'}) }}" method="post" class="d-inline" {{ sylius_test_html_attribute('tmonier-approve') }}>
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('tmonier_registration_decision_' ~ data.id) }}">
+        <button class="btn btn-success btn-sm">{{ ux_icon('tabler:check') }} {{ 'tmonier_registration_approval.ui.approve'|trans }}</button>
+    </form>
+    <form action="{{ path('tmonier_registration_approval_admin_decide', {'id': data.id, 'decision': 'reject'}) }}" method="post" class="d-inline-flex gap-1 align-items-center" {{ sylius_test_html_attribute('tmonier-reject') }}>
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('tmonier_registration_decision_' ~ data.id) }}">
+        <input type="text" name="reason" maxlength="500" class="form-control form-control-sm" style="width: 12rem" placeholder="{{ 'tmonier_registration_approval.ui.reason'|trans }}" aria-label="{{ 'tmonier_registration_approval.ui.reason'|trans }}">
+        <button class="btn btn-outline-danger btn-sm">{{ ux_icon('tabler:x') }} {{ 'tmonier_registration_approval.ui.reject'|trans }}</button>
+    </form>
+{% endif %}

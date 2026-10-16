@@ -1,0 +1,6 @@
+tmonier_registration_approval:
+    flash:
+        approved: 'La registrazione è stata approvata e il cliente è stato avvisato.'
+        rejected: 'La registrazione è stata rifiutata e il cliente è stato avvisato.'
+        already_decided: 'Questa registrazione è già stata decisa.'
+        reason_too_long: 'Il motivo è limitato a 500 caratteri.'

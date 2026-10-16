@@ -1,0 +1,5 @@
+tmonier_registration_approval_shop_pending:
+    path: /registration/pending
+    methods: [GET]
+    defaults:
+        _controller: tmonier_registration_approval.controller.shop.pending

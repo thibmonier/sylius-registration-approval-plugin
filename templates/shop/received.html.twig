@@ -1,0 +1,11 @@
+{% extends '@SyliusShop/shared/layout/base.html.twig' %}
+
+{% block title %}{{ 'tmonier_registration_approval.shop.received.title'|trans }} | {{ parent() }}{% endblock %}
+
+{% block content %}
+    <div class="container my-5" data-test-tmonier-registration-received>
+        <h1 class="h3 mb-3">{{ 'tmonier_registration_approval.shop.received.title'|trans }}</h1>
+        <p>{{ 'tmonier_registration_approval.shop.received.message'|trans }}</p>
+        <a href="{{ path('sylius_shop_homepage') }}" class="btn btn-outline-primary">{{ 'tmonier_registration_approval.shop.home'|trans }}</a>
+    </div>
+{% endblock %}

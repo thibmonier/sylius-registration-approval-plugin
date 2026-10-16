@@ -1,0 +1,34 @@
+tmonier_registration_approval:
+    ui:
+        registrations: 'Registrations'
+        registrations_subheader: 'Approve or reject the accounts registered on the channels that validate their registrations.'
+        registered_at: 'Registered on'
+        status: 'Status'
+        approve: 'Approve'
+        reject: 'Reject'
+        reason: 'Internal reason (optional)'
+    status:
+        pending: 'Pending'
+        approved: 'Approved'
+        rejected: 'Rejected'
+    shop:
+        home: 'Back to the home page'
+        pending:
+            title: 'Your registration is awaiting approval'
+            message: 'An administrator has to approve your account before you can browse the catalogue. You will receive an e-mail as soon as it is done.'
+        rejected:
+            title: 'Your registration was not approved'
+            message: 'Your account has not been approved, so the catalogue is not available to you. Contact us if you think this is a mistake.'
+        received:
+            title: 'Registration received'
+            message: 'Thank you. Your account will be reviewed by an administrator and you will receive an e-mail with the decision.'
+    email:
+        approved:
+            subject: 'Your account has been approved'
+            title: 'Welcome!'
+            message: 'Your registration has been approved. You can now sign in and browse the catalogue.'
+            action: 'Start shopping'
+        rejected:
+            subject: 'About your registration'
+            title: 'Registration not approved'
+            message: 'We are sorry, your registration could not be approved. Contact us if you think this is a mistake.'

@@ -1,0 +1,34 @@
+tmonier_registration_approval:
+    ui:
+        registrations: 'Registrierungen'
+        registrations_subheader: 'Genehmigen oder lehnen Sie die Konten ab, die in den Kanälen mit Registrierungsprüfung angelegt wurden.'
+        registered_at: 'Registriert am'
+        status: 'Status'
+        approve: 'Genehmigen'
+        reject: 'Ablehnen'
+        reason: 'Interner Grund (optional)'
+    status:
+        pending: 'Ausstehend'
+        approved: 'Genehmigt'
+        rejected: 'Abgelehnt'
+    shop:
+        home: 'Zurück zur Startseite'
+        pending:
+            title: 'Ihre Registrierung wartet auf Genehmigung'
+            message: 'Ein Administrator muss Ihr Konto genehmigen, bevor Sie den Katalog ansehen können. Sie erhalten eine E-Mail, sobald dies geschehen ist.'
+        rejected:
+            title: 'Ihre Registrierung wurde nicht genehmigt'
+            message: 'Ihr Konto wurde nicht genehmigt, daher steht Ihnen der Katalog nicht zur Verfügung. Kontaktieren Sie uns, falls Sie einen Irrtum vermuten.'
+        received:
+            title: 'Registrierung eingegangen'
+            message: 'Vielen Dank. Ihr Konto wird von einem Administrator geprüft und Sie erhalten die Entscheidung per E-Mail.'
+    email:
+        approved:
+            subject: 'Ihr Konto wurde genehmigt'
+            title: 'Willkommen!'
+            message: 'Ihre Registrierung wurde genehmigt. Sie können sich jetzt anmelden und den Katalog ansehen.'
+            action: 'Jetzt einkaufen'
+        rejected:
+            subject: 'Zu Ihrer Registrierung'
+            title: 'Registrierung nicht genehmigt'
+            message: 'Leider konnte Ihre Registrierung nicht genehmigt werden. Kontaktieren Sie uns, falls Sie einen Irrtum vermuten.'

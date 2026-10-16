@@ -1,0 +1,34 @@
+tmonier_registration_approval:
+    ui:
+        registrations: 'Rejestracje'
+        registrations_subheader: 'Zatwierdź lub odrzuć konta utworzone w kanałach, które weryfikują rejestracje.'
+        registered_at: 'Zarejestrowano'
+        status: 'Status'
+        approve: 'Zatwierdź'
+        reject: 'Odrzuć'
+        reason: 'Powód wewnętrzny (opcjonalnie)'
+    status:
+        pending: 'Oczekuje'
+        approved: 'Zatwierdzona'
+        rejected: 'Odrzucona'
+    shop:
+        home: 'Powrót na stronę główną'
+        pending:
+            title: 'Twoja rejestracja oczekuje na zatwierdzenie'
+            message: 'Administrator musi zatwierdzić Twoje konto, zanim będziesz mógł przeglądać katalog. Otrzymasz e-mail, gdy to nastąpi.'
+        rejected:
+            title: 'Twoja rejestracja nie została zatwierdzona'
+            message: 'Twoje konto nie zostało zatwierdzone, więc katalog jest dla Ciebie niedostępny. Skontaktuj się z nami, jeśli uważasz, że to pomyłka.'
+        received:
+            title: 'Rejestracja przyjęta'
+            message: 'Dziękujemy. Administrator sprawdzi Twoje konto, a decyzję otrzymasz e-mailem.'
+    email:
+        approved:
+            subject: 'Twoje konto zostało zatwierdzone'
+            title: 'Witamy!'
+            message: 'Twoja rejestracja została zatwierdzona. Możesz się teraz zalogować i przeglądać katalog.'
+            action: 'Zacznij zakupy'
+        rejected:
+            subject: 'W sprawie Twojej rejestracji'
+            title: 'Rejestracja nie została zatwierdzona'
+            message: 'Przykro nam, Twoja rejestracja nie mogła zostać zatwierdzona. Skontaktuj się z nami, jeśli uważasz, że to pomyłka.'

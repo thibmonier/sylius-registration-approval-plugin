@@ -1,0 +1,6 @@
+tmonier_registration_approval:
+    flash:
+        approved: 'L''inscription a été approuvée et le client a été prévenu.'
+        rejected: 'L''inscription a été refusée et le client a été prévenu.'
+        already_decided: 'Cette inscription a déjà fait l''objet d''une décision.'
+        reason_too_long: 'Le motif est limité à 500 caractères.'

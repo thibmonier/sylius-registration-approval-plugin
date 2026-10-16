@@ -1,0 +1,6 @@
+tmonier_registration_approval:
+    flash:
+        approved: 'De registratie is goedgekeurd en de klant is op de hoogte gebracht.'
+        rejected: 'De registratie is afgewezen en de klant is op de hoogte gebracht.'
+        already_decided: 'Over deze registratie is al beslist.'
+        reason_too_long: 'De reden is beperkt tot 500 tekens.'

@@ -1,0 +1,34 @@
+tmonier_registration_approval:
+    ui:
+        registrations: 'Registraties'
+        registrations_subheader: 'Keur de accounts goed of af die zijn aangemaakt in de kanalen die registraties valideren.'
+        registered_at: 'Geregistreerd op'
+        status: 'Status'
+        approve: 'Goedkeuren'
+        reject: 'Afwijzen'
+        reason: 'Interne reden (optioneel)'
+    status:
+        pending: 'In afwachting'
+        approved: 'Goedgekeurd'
+        rejected: 'Afgewezen'
+    shop:
+        home: 'Terug naar de homepage'
+        pending:
+            title: 'Uw registratie wacht op goedkeuring'
+            message: 'Een beheerder moet uw account goedkeuren voordat u de catalogus kunt bekijken. U ontvangt een e-mail zodra dit is gebeurd.'
+        rejected:
+            title: 'Uw registratie is niet goedgekeurd'
+            message: 'Uw account is niet goedgekeurd, dus de catalogus is niet beschikbaar voor u. Neem contact op als u denkt dat dit een vergissing is.'
+        received:
+            title: 'Registratie ontvangen'
+            message: 'Bedankt. Uw account wordt door een beheerder beoordeeld en u ontvangt een e-mail met de beslissing.'
+    email:
+        approved:
+            subject: 'Uw account is goedgekeurd'
+            title: 'Welkom!'
+            message: 'Uw registratie is goedgekeurd. U kunt nu inloggen en de catalogus bekijken.'
+            action: 'Begin met winkelen'
+        rejected:
+            subject: 'Over uw registratie'
+            title: 'Registratie niet goedgekeurd'
+            message: 'Helaas kon uw registratie niet worden goedgekeurd. Neem contact op als u denkt dat dit een vergissing is.'

@@ -1,0 +1,23 @@
+# Registrations awaiting a decision (grid of the customers, filtered on the status).
+tmonier_registration_approval_admin_index:
+    path: /registration-approvals
+    methods: [GET]
+    defaults:
+        _controller: sylius.controller.customer::indexAction
+        _sylius:
+            section: admin
+            permission: true
+            template: "@SyliusAdmin/shared/crud/index.html.twig"
+            grid: tmonier_registration_approval_admin
+            vars:
+                hook_prefix: tmonier_registration_approval_admin.registration
+
+# Decision: POST only, CSRF token and administration access checked by the controller.
+tmonier_registration_approval_admin_decide:
+    path: /registration-approvals/{id}/{decision}
+    methods: [POST]
+    requirements:
+        id: '\d+'
+        decision: 'approve|reject'
+    defaults:
+        _controller: tmonier_registration_approval.controller.admin.decision

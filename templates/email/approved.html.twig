@@ -1,0 +1,19 @@
+{% extends '@SyliusCore/Email/layout.html.twig' %}
+
+{% block subject %}
+    {{ 'tmonier_registration_approval.email.approved.subject'|trans({}, null, localeCode)|raw }}
+{% endblock %}
+
+{% block content %}
+    <div style="text-align: center; margin-bottom: 30px;">
+        <div style="font-size: 24px;">{{ 'tmonier_registration_approval.email.approved.title'|trans({}, null, localeCode) }}</div>
+        <p>{{ 'tmonier_registration_approval.email.approved.message'|trans({}, null, localeCode) }}</p>
+    </div>
+{% if channel is not null %}
+    <div style="text-align: center;">
+        <a href="{{ sylius_channel_url(path('sylius_shop_homepage', {'_locale': localeCode}), channel)|raw }}" style="display: inline-block; text-align: center; background: #1abb9c; padding: 18px 28px; color: #fff; text-decoration: none; border-radius: 3px;">
+            {{ 'tmonier_registration_approval.email.approved.action'|trans({}, null, localeCode) }}
+        </a>
+    </div>
+{% endif %}
+{% endblock %}

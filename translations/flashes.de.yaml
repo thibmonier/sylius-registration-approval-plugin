@@ -1,0 +1,6 @@
+tmonier_registration_approval:
+    flash:
+        approved: 'Die Registrierung wurde genehmigt und der Kunde wurde benachrichtigt.'
+        rejected: 'Die Registrierung wurde abgelehnt und der Kunde wurde benachrichtigt.'
+        already_decided: 'Über diese Registrierung wurde bereits entschieden.'
+        reason_too_long: 'Der Grund ist auf 500 Zeichen begrenzt.'

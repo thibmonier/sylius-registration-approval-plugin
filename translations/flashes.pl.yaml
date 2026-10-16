@@ -1,0 +1,6 @@
+tmonier_registration_approval:
+    flash:
+        approved: 'Rejestracja została zatwierdzona, a klient został powiadomiony.'
+        rejected: 'Rejestracja została odrzucona, a klient został powiadomiony.'
+        already_decided: 'Ta rejestracja została już rozpatrzona.'
+        reason_too_long: 'Powód jest ograniczony do 500 znaków.'
