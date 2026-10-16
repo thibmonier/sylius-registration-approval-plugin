@@ -31,6 +31,7 @@ final readonly class RegistrationMarker
         private ApprovalPolicyInterface $policy,
         private AccessModeResolverInterface $accessModes,
         private ?LoggerInterface $logger = null,
+        private OnceReporter $reporter = new OnceReporter(),
     ) {
     }
 
@@ -64,7 +65,8 @@ final readonly class RegistrationMarker
     private function warnIfValidationIsInert(): void
     {
         $channel = $this->channel();
-        if ($channel instanceof ChannelInterface && $this->policy->requiresApproval($channel) && AccessMode::Open === $this->accessModes->modeOf($channel)) {
+        if ($channel instanceof ChannelInterface && $this->policy->requiresApproval($channel) && AccessMode::Open === $this->accessModes->modeOf($channel) && $this->reporter->isNew((string) $channel->getCode())) {
+            // Once per channel and process: `tmonier:registration-approval:check` is the main diagnostic.
             $this->logger?->warning('The channel "{channel}" validates registrations but its access mode is "open": pending customers are not restricted. Set the channel to "prices_hidden" or "closed".', ['channel' => $channel->getCode()]);
         }
     }
