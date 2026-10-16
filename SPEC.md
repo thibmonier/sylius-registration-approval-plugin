@@ -17,8 +17,11 @@ Assets: the closed catalogue and the prices; the decision itself; the knowledge 
 | 5 | Account enumeration on the registration page | The unique e-mail form error is removed on validating channels; creation is stopped in `sylius.customer.pre_register`; both paths redirect to the same URL and render the same page; the new customer is signed out; tests compare the final pages and the mixed-error case |
 | 6 | Account enumeration through the shop API | The core `UniqueShopUserEmail` validator and the register handler are decorated: 204 for both. Other violations stay and are identical |
 | 7 | Guest customer re-registers to skip the validation | The marker works on the new `ShopUser` (prePersist), not on the customer: an existing guest customer becomes pending when it gets an account |
-| 8 | Admin-created accounts or fixtures blocked | The marker only acts for the shop and shop API sections with an HTTP request |
+| 8 | Admin-created accounts or fixtures blocked | The marker only acts for the shop and shop API sections with an HTTP request (a handler without request, e.g. async bus, is not covered) |
 | 9 | Stored XSS through the internal reason | Never rendered; limited to 500 characters; Twig autoescapes the status column (decider name) |
+| 11 | Register on a channel that does not validate, sign in on the one that does | Every self-service registration is `pending` whatever the channel; the restriction (VisitorApproval) applies only on validating channels. Functional test: register on a second channel, works there, 403 on the validating one until approved |
+| 12 | Timing difference of the duplicate e-mail path | A throwaway password is hashed on that path (same hasher as a real registration). E-mails still differ (documented) |
+| 13 | Validating channel left `open` (nothing restricted) | Warning logged at registration + `tmonier:registration-approval:check` (exit 1) |
 | 10 | E-mail abuse / secrets | The mail carries a fixed text, no reason, no token; sent only by the decision; failures are logged and swallowed |
 
 Accepted limits are listed in the README.
@@ -28,6 +31,7 @@ Accepted limits are listed in the README.
 - **Status on the customer**, not on the user: the registration of a guest customer keeps its history.
   Latest decision only (status, date, author, reason): no history table (YAGNI); the event allows an
   external audit.
+- **Pending everywhere, restricted where validated**: the status describes the account, the channel list says where it matters.
 - **Channels by configuration** (codes), not by an admin flag: the sprint story only asks for
   a channel list; a policy interface allows a flag later.
 - **403 waiting page, not a redirect** for the signed-in pending customer: the access plugin only

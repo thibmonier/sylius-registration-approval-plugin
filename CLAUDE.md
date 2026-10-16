@@ -36,7 +36,7 @@ After adding a `translations/` file or a route, run `cache:clear -e test`.
   `ApprovalDecidedEvent` after the commit; throws `InvalidApprovalTransitionException` outside the
   transaction because an exception inside would close the entity manager), `VisitorApproval`
   (status of the signed-in customer when the channel validates and the customer is not approved),
-  `RegistrationMarker` (Doctrine `prePersist` of a new `ShopUser`: shop and shop API sections only).
+  `RegistrationMarker` (Doctrine `prePersist` of a new `ShopUser`: shop and shop API sections only, ANY channel; warns when a validating channel is `open`). `Command/CheckConfigurationCommand` reports validating channels that restrict nothing.
 - `Access/ApprovalAwareAccessModeResolver` decorates `tmonier_channel_access.resolver`: a pending or
   rejected customer is "not signed in" there, so all its protections apply (hidden prices, add to
   cart, API...). `EventListener/PendingCustomerListener` (kernel.request 7, before the access

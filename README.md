@@ -12,9 +12,12 @@ makes a customer whose registration is not approved count as such a visitor.
 
 ## Features
 
-- **Pending by default.** On the channels you list, the account created by a registration (page,
-  registration after checkout, shop API) is `pending`. Accounts created in the administration, by
-  fixtures or by console stay approved, and so do all existing customers.
+- **Pending by default, on every channel.** The account created by a self-service registration
+  (page, registration after checkout, shop API) is `pending` **whatever the channel it is made on**,
+  so that registering on a channel that does not validate cannot be a way round the ones that do.
+  The restriction itself only applies on the channels you list. Accounts created in the
+  administration, by fixtures or by console stay approved, and so do all existing customers
+  (`approved` comes from a decision of an administrator or from the migration default).
 - **No access until approved.** A pending or rejected customer is "not signed in" for the access
   plugin: on a closed channel the catalogue answers **403** with a waiting page (JSON 403 on
   `/api/v2/shop/*`); on a prices hidden channel they see no price and cannot add to a cart; on an
@@ -106,7 +109,11 @@ The waiting page route is added to the exemptions of the access plugin automatic
 ## Using it
 
 Set the channel to *closed* (or *prices hidden*) in the administration (access plugin), list it in
-`channels`, and registrations on that channel wait for you in *Customers > Registrations*.
+`channels`, and registrations wait for you in *Customers > Registrations*.
+
+A listed channel whose access mode is *open* restricts nobody: pending customers browse and buy as
+before. The plugin logs a warning at registration and `bin/console tmonier:registration-approval:check`
+reports it (exit code 1; unknown channel codes too): run it in your deployment checks.
 
 ## Contract for other code
 
@@ -129,8 +136,14 @@ Set the channel to *closed* (or *prices hidden*) in the administration (access p
 - There is no *reopen* action: a rejected customer stays rejected (change the column by hand).
 - Guest checkout customers (no account) are not pending; they cannot buy on a restricted channel
   anyway. A customer who registers later with the same address becomes pending.
-- Timing and e-mails still differ between a new and an existing address (a new registration may
-  send the Sylius welcome or verification e-mail).
+- The registration page does the same work for a new and an existing address (the password is hashed
+  in both cases, so the response time does not tell), but the e-mails still differ: a new
+  registration may send the Sylius welcome or verification e-mail, the existing address receives
+  nothing.
+- `approval_decided_by` (the administrator's username) is **personal data**: include it in your GDPR
+  records and erase or anonymise it with the administrator's account.
+- Registrations made through an **asynchronous Messenger bus** (a handler running without an HTTP
+  request) are not marked pending: the marker needs the shop request.
 
 ## Testing
 

@@ -20,3 +20,11 @@
 - No account enumeration on the registration page and the shop API of the validating channels.
 - Public contract: `ApprovalStatus`, `RegistrationApprovalManagerInterface`, `ApprovalDecidedEvent`,
   `VisitorApprovalInterface`, `ApprovalPolicyInterface`.
+
+### Security
+
+- Every self-service registration is `pending` whatever the channel (was: only on validating
+  channels), closing the register-elsewhere-then-sign-in bypass.
+- The duplicate e-mail path hashes a throwaway password (no timing difference).
+- `tmonier:registration-approval:check` and a registration-time warning for a validating channel left
+  in `open` mode.
