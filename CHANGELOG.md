@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.1 - 2026-10-16
+
+### Fixed
+
+- The waiting and "registration received" pages are rendered in the locale of the visitor (it was
+  the default locale), including the JSON 403 of the shop API; a forged locale falls back to the
+  channel default.
+
 ## 0.1.0 - 2026-10-16
 
 ### Added
