@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.2 - 2026-10-16
+
+### Changed
+
+- Accepts `tmonier/sylius-channel-access-plugin` `^0.1 || ^0.2` (0.2 adds configurable restricted routes; the
+  contract used by this plugin is unchanged).
+
 ## 0.1.1 - 2026-10-16
 
 ### Fixed
