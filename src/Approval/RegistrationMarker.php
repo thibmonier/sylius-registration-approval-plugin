@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tmonier\SyliusRegistrationApprovalPlugin\Approval;
 
+use Psr\Log\LoggerInterface;
 use Sylius\Bundle\ApiBundle\SectionResolver\ShopApiSection;
 use Sylius\Bundle\CoreBundle\SectionResolver\SectionProviderInterface;
 use Sylius\Bundle\ShopBundle\SectionResolver\ShopSection;
@@ -12,11 +13,13 @@ use Sylius\Component\Channel\Context\ChannelNotFoundException;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Tmonier\SyliusChannelAccessPlugin\Access\AccessMode;
+use Tmonier\SyliusChannelAccessPlugin\Access\AccessModeResolverInterface;
 use Tmonier\SyliusRegistrationApprovalPlugin\Entity\Customer\ApprovalAwareInterface;
 
 /**
- * Puts the account created by a registration of the shop (page or shop API) on a channel that
- * validates its registrations in the pending state. Accounts created elsewhere (administration,
+ * Puts the account created by a registration of the shop (page or shop API), on any channel, in
+ * the pending state. Accounts created elsewhere (administration,
  * fixtures, console) and customers without account (guest checkout) are untouched.
  */
 final readonly class RegistrationMarker
@@ -26,6 +29,8 @@ final readonly class RegistrationMarker
         private SectionProviderInterface $sectionProvider,
         private ChannelContextInterface $channelContext,
         private ApprovalPolicyInterface $policy,
+        private AccessModeResolverInterface $accessModes,
+        private ?LoggerInterface $logger = null,
     ) {
     }
 
@@ -49,9 +54,18 @@ final readonly class RegistrationMarker
             return;
         }
 
+        // Whatever the channel: registering on a channel that does not validate must not be a way
+        // round the validation of the others. The restriction itself only applies on validating
+        // channels (VisitorApproval).
+        $customer->markApprovalPending();
+        $this->warnIfValidationIsInert();
+    }
+
+    private function warnIfValidationIsInert(): void
+    {
         $channel = $this->channel();
-        if ($channel instanceof ChannelInterface && $this->policy->requiresApproval($channel)) {
-            $customer->markApprovalPending();
+        if ($channel instanceof ChannelInterface && $this->policy->requiresApproval($channel) && AccessMode::Open === $this->accessModes->modeOf($channel)) {
+            $this->logger?->warning('The channel "{channel}" validates registrations but its access mode is "open": pending customers are not restricted. Set the channel to "prices_hidden" or "closed".', ['channel' => $channel->getCode()]);
         }
     }
 

@@ -6,12 +6,15 @@ namespace Tmonier\SyliusRegistrationApprovalPlugin\EventListener;
 
 use Doctrine\ORM\Event\PrePersistEventArgs;
 use Sylius\Bundle\ResourceBundle\Event\ResourceControllerEvent;
+use Sylius\Component\Core\Model\ShopUserInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Tmonier\SyliusRegistrationApprovalPlugin\Approval\ApprovalStatus;
+use Tmonier\SyliusRegistrationApprovalPlugin\Approval\ChannelApprovalChecker;
 use Tmonier\SyliusRegistrationApprovalPlugin\Approval\RegistrationMarker;
 use Tmonier\SyliusRegistrationApprovalPlugin\Entity\Customer\ApprovalAwareInterface;
 use Tmonier\SyliusRegistrationApprovalPlugin\Form\Extension\RegistrationTypeExtension;
@@ -30,6 +33,8 @@ final readonly class RegistrationListener
         private TokenStorageInterface $tokenStorage,
         private RequestStack $requestStack,
         private UrlGeneratorInterface $urlGenerator,
+        private ChannelApprovalChecker $channelChecker,
+        private PasswordHasherFactoryInterface $hasherFactory,
     ) {
     }
 
@@ -37,7 +42,9 @@ final readonly class RegistrationListener
     {
         if (true === $this->requestStack->getMainRequest()?->attributes->get(RegistrationTypeExtension::DUPLICATE_EMAIL_ATTRIBUTE)) {
             // The e-mail belongs to an account: nothing is created and the visitor gets the same
-            // answer as after a real registration (message, page).
+            // answer as after a real registration (message, page), in the same time: the password
+            // of a real registration is hashed, so a throwaway one is hashed here.
+            $this->hasherFactory->getPasswordHasher(ShopUserInterface::class)->hash(bin2hex(random_bytes(16)));
             $event->stop('sylius.customer.register', ResourceControllerEvent::TYPE_SUCCESS);
             $event->setResponse(new RedirectResponse($this->urlGenerator->generate(self::THANK_YOU_ROUTE)));
         }
@@ -56,7 +63,7 @@ final readonly class RegistrationListener
     public function onPostRegister(ResourceControllerEvent $event): void
     {
         $customer = $event->getSubject();
-        if ($customer instanceof ApprovalAwareInterface && ApprovalStatus::Pending === $customer->getApprovalStatus() && $this->requestStack->getMainRequest() instanceof Request) {
+        if ($customer instanceof ApprovalAwareInterface && $this->channelChecker->currentChannelRequiresApproval() && ApprovalStatus::Pending === $customer->getApprovalStatus() && $this->requestStack->getMainRequest() instanceof Request) {
             $this->tokenStorage->setToken(null);
             // Same address as the duplicate e-mail answer (Sylius would add the customer id).
             $event->setResponse(new RedirectResponse($this->urlGenerator->generate(self::THANK_YOU_ROUTE)));
