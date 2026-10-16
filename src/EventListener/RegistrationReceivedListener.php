@@ -18,7 +18,7 @@ use Tmonier\SyliusRegistrationApprovalPlugin\Shop\PendingPageRenderer;
  */
 final readonly class RegistrationReceivedListener
 {
-    private const THANK_YOU_ROUTE = 'sylius_shop_register_thank_you';
+    private const string THANK_YOU_ROUTE = 'sylius_shop_register_thank_you';
 
     public function __construct(
         private ChannelContextInterface $channelContext,
@@ -40,7 +40,7 @@ final readonly class RegistrationReceivedListener
         }
 
         if ($channel instanceof ChannelInterface && $this->policy->requiresApproval($channel)) {
-            $event->setResponse($this->renderer->renderReceived());
+            $event->setResponse($this->renderer->renderReceived($event->getRequest()));
         }
     }
 }

@@ -76,7 +76,7 @@ return static function (ContainerConfigurator $container): void {
     ;
 
     $services->set('tmonier_registration_approval.shop.pending_page_renderer', PendingPageRenderer::class)
-        ->args([service('twig'), '%sylius.security.api_shop_route%'])
+        ->args([service('twig'), '%sylius.security.api_shop_route%', service('translator')])
     ;
 
     // After the firewall (8), before the access listener of the channel access plugin (6).
