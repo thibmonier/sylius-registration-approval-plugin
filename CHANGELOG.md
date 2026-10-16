@@ -28,3 +28,7 @@
 - The duplicate e-mail path hashes a throwaway password (no timing difference).
 - `tmonier:registration-approval:check` and a registration-time warning for a validating channel left
   in `open` mode.
+
+### Compatibility
+
+- Requires Sylius 2.3 and PHP 8.3 (the hook `condition` option does not exist in Sylius 2.2).

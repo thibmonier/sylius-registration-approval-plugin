@@ -40,8 +40,8 @@ makes a customer whose registration is not approved count as such a visitor.
 
 | | Version |
 |---|---|
-| PHP | 8.2+ (8.3+ with Sylius 2.3) |
-| Sylius | 2.2.9+, 2.3 |
+| PHP | 8.3+ |
+| Sylius | 2.3 (required by the access plugin) |
 | `tmonier/sylius-channel-access-plugin` | ^0.1 |
 
 ## Installation
