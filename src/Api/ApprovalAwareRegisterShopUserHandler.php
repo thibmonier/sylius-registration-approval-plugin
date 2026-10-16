@@ -8,6 +8,7 @@ use Sylius\Bundle\ApiBundle\Command\Account\RegisterShopUser;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\User\Canonicalizer\CanonicalizerInterface;
 use Sylius\Component\User\Repository\UserRepositoryInterface;
+use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
 use Tmonier\SyliusRegistrationApprovalPlugin\Approval\ChannelApprovalChecker;
 
 /**
@@ -28,6 +29,7 @@ final readonly class ApprovalAwareRegisterShopUserHandler
         private ChannelApprovalChecker $channelChecker,
         private CanonicalizerInterface $canonicalizer,
         private UserRepositoryInterface $shopUserRepository,
+        private PasswordHasherFactoryInterface $hasherFactory,
     ) {
         $this->inner = $inner(...);
     }
@@ -35,6 +37,9 @@ final readonly class ApprovalAwareRegisterShopUserHandler
     public function __invoke(RegisterShopUser $command): ?ShopUserInterface
     {
         if ($this->channelChecker->currentChannelRequiresApproval() && $this->hasAccount($command->email)) {
+            // A real registration hashes the password: do the same work so the time does not tell.
+            $this->hasherFactory->getPasswordHasher(ShopUserInterface::class)->hash(bin2hex(random_bytes(16)));
+
             return null;
         }
 

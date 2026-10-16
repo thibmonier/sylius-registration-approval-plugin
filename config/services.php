@@ -153,6 +153,7 @@ return static function (ContainerConfigurator $container): void {
             service('tmonier_registration_approval.channel_checker'),
             service('sylius.canonicalizer'),
             service('sylius.repository.shop_user'),
+            service('security.password_hasher_factory'),
         ])
     ;
 
