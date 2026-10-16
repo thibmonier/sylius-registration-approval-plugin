@@ -13,8 +13,8 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^8.2",
-        "sylius/sylius": "^2.2.9 || ^2.3",
+        "php": "^8.3",
+        "sylius/sylius": "^2.3",
         "tmonier/sylius-channel-access-plugin": "^0.1@dev"
     },
     "require-dev": {
