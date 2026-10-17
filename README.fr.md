@@ -38,6 +38,16 @@ fait d'un client dont l'inscription n'est pas approuvée un tel visiteur.
   /api/v2/shop/customers` (204 dans les deux cas). Les autres erreurs de validation restent affichées, de la même
   façon dans les deux cas.
 
+## Captures d'écran
+
+![Clients > Inscriptions : comptes en attente avec Approuver / Refuser et un motif interne facultatif](docs/images/admin-registrations.jpg)
+
+*Clients > Inscriptions : comptes en attente avec Approuver / Refuser et un motif interne facultatif*
+
+![Page d'attente d'un client dont l'inscription n'est pas encore approuvée](docs/images/shop-registration-pending.jpg)
+
+*Page d'attente d'un client dont l'inscription n'est pas encore approuvée*
+
 ## Prérequis
 
 | | Version |

@@ -38,6 +38,16 @@ makes a customer whose registration is not approved count as such a visitor.
   /api/v2/shop/customers` (204 in both cases). The other validation errors are still shown, the same
   way for both.
 
+## Screenshots
+
+![Customers > Registrations: pending accounts with Approve / Reject and an optional internal reason](docs/images/admin-registrations.jpg)
+
+*Customers > Registrations: pending accounts with Approve / Reject and an optional internal reason*
+
+![Waiting page shown to a customer whose registration is not approved yet](docs/images/shop-registration-pending.jpg)
+
+*Waiting page shown to a customer whose registration is not approved yet*
+
 ## Requirements
 
 | | Version |
