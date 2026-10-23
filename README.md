@@ -50,11 +50,15 @@ makes a customer whose registration is not approved count as such a visitor.
 
 ## Requirements
 
-| | Version |
+| | Supported |
 |---|---|
-| PHP | 8.3+ |
-| Sylius | 2.3 (required by the access plugin) |
-| `tmonier/sylius-channel-access-plugin` | ^0.1 |
+| PHP | 8.3, 8.4 |
+| Sylius | **2.3+ only** (required by the access plugin) |
+| Symfony | 6.4, 7.4, 8.0 |
+| `tmonier/sylius-channel-access-plugin` | ^0.1 \|\| ^0.2 |
+| Database | MySQL 8.4, MariaDB 11.4, PostgreSQL 17 |
+
+The plugin is at version 0.x: its configuration may change between minor versions, read the [CHANGELOG](CHANGELOG.md) before upgrading.
 
 ## Installation
 
