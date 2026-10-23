@@ -143,6 +143,8 @@ reports it (exit code 1; unknown channel codes too): run it in your deployment c
 - `ApprovalPolicyInterface::requiresApproval(ChannelInterface)`: replace the configured list
   (e.g. a flag on the channel) by decorating `tmonier_registration_approval.policy`.
 
+The ways to adapt a plugin without modifying it (templates, forms, entities, services) are shown with real examples in the [override guide](https://sylius-b2b.thibaut-monier.fr/en_US/surcharge) of the B2B demo.
+
 ## Limits
 
 - The registration channel is not stored: the e-mails use the current channel when it validates

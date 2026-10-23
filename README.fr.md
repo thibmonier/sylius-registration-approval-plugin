@@ -143,6 +143,8 @@ le signale (code de sortie 1 ; les codes de canal inconnus aussi) : exécutez-le
 - `ApprovalPolicyInterface::requiresApproval(ChannelInterface)` : remplacez la liste configurée
   (par exemple par un indicateur sur le canal) en décorant `tmonier_registration_approval.policy`.
 
+Les façons d'adapter un plugin sans le modifier (gabarits, formulaires, entités, services) sont montrées avec des exemples réels dans le [guide de surcharge](https://sylius-b2b.thibaut-monier.fr/fr_FR/surcharge) de la démo B2B.
+
 ## Limites
 
 - Le canal d'inscription n'est pas stocké : les e-mails utilisent le canal courant lorsqu'il valide les
